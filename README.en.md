@@ -12,6 +12,9 @@ Drag the interactive markers in RViz to set a goal pose, then click **Plan & Exe
 | OS | Ubuntu 24.04 |
 | ROS | ROS 2 Jazzy |
 
+> If ROS 2 Jazzy is not installed, please follow the official installation guide first.
+> https://docs.ros.org/en/jazzy/Installation.html
+
 ---
 
 ## Directory Structure
@@ -43,9 +46,24 @@ openarm_moveit/
 
 ---
 
-## Setup
+## Installation & Usage
 
-### Step 1: Install Dependencies
+### Step 1: Verify ROS 2 Jazzy environment
+
+Make sure your ROS 2 environment is sourced.
+
+```bash
+source /opt/ros/jazzy/setup.bash
+```
+
+To avoid running this every time, add it to `~/.bashrc`:
+
+```bash
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Step 2: Install dependencies
 
 ```bash
 sudo apt update && sudo apt install -y \
@@ -75,7 +93,17 @@ sudo apt update && sudo apt install -y \
   ros-jazzy-tf2-ros
 ```
 
-### Step 2: Build
+### Step 3: Create workspace and clone
+
+```bash
+mkdir -p ~/openarm_moveit/src
+cd ~/openarm_moveit/src
+git clone https://github.com/XHAKA3456/openarm_moveit.git .
+```
+
+> The trailing `.` clones directly into the current `src/` directory.
+
+### Step 4: Build
 
 ```bash
 cd ~/openarm_moveit
@@ -83,7 +111,13 @@ colcon build
 source install/setup.bash
 ```
 
-### Step 3: Bring up CAN interfaces (required for real robot)
+For every new terminal session, run:
+
+```bash
+source ~/openarm_moveit/install/setup.bash
+```
+
+### Step 5: Bring up CAN interfaces (required for real robot)
 
 > Skip this step if you are using simulation mode (`use_fake_hardware:=true`).
 
@@ -101,7 +135,7 @@ To bring down the interfaces:
 ./setup_can.sh down
 ```
 
-### Step 4: Launch
+### Step 6: Launch
 
 **Simulation (fake hardware):**
 ```bash

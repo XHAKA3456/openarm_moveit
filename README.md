@@ -12,6 +12,9 @@ RViz의 MotionPlanning 패널에서 interactive marker를 마우스로 드래그
 | OS | Ubuntu 24.04 |
 | ROS | ROS 2 Jazzy |
 
+> ROS 2 Jazzy가 설치되어 있지 않다면 먼저 공식 문서를 참고해 설치해 주세요.
+> https://docs.ros.org/en/jazzy/Installation.html
+
 ---
 
 ## 디렉토리 구조
@@ -43,9 +46,24 @@ openarm_moveit/
 
 ---
 
-## 실행 방법
+## 설치 및 실행 방법
 
-### 1단계: 의존성 설치
+### 1단계: ROS 2 Jazzy 환경 설정 확인
+
+터미널에서 ROS 2 환경이 로드되어 있는지 확인합니다.
+
+```bash
+source /opt/ros/jazzy/setup.bash
+```
+
+매번 수동으로 실행하지 않으려면 `~/.bashrc`에 추가합니다.
+
+```bash
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### 2단계: 의존성 설치
 
 ```bash
 sudo apt update && sudo apt install -y \
@@ -75,7 +93,17 @@ sudo apt update && sudo apt install -y \
   ros-jazzy-tf2-ros
 ```
 
-### 2단계: 빌드
+### 3단계: 워크스페이스 생성 및 클론
+
+```bash
+mkdir -p ~/openarm_moveit/src
+cd ~/openarm_moveit/src
+git clone https://github.com/XHAKA3456/openarm_moveit.git .
+```
+
+> `git clone` 뒤에 `.`을 붙이면 현재 디렉토리(`src/`)에 바로 클론됩니다.
+
+### 4단계: 빌드
 
 ```bash
 cd ~/openarm_moveit
@@ -83,7 +111,13 @@ colcon build
 source install/setup.bash
 ```
 
-### 3단계: CAN 인터페이스 활성화 (실제 로봇 연결 시 필수)
+빌드 후 새 터미널을 열 때마다 아래 명령어를 실행해야 합니다.
+
+```bash
+source ~/openarm_moveit/install/setup.bash
+```
+
+### 5단계: CAN 인터페이스 활성화 (실제 로봇 연결 시 필수)
 
 > 시뮬레이션(`use_fake_hardware:=true`)으로만 사용하는 경우 이 단계는 생략 가능합니다.
 
@@ -101,7 +135,7 @@ cd ~/openarm_moveit/src
 ./setup_can.sh down
 ```
 
-### 4단계: 실행
+### 6단계: 실행
 
 **시뮬레이션 (fake hardware):**
 ```bash
@@ -152,6 +186,8 @@ ros2 launch openarm_bimanual_moveit_config demo.launch.py use_fake_hardware:=fal
 - `openarm_bimanual.srdf`: URDF와 이름 통일, `both_arms` planning group 추가, end-effector `parent_group` 추가
 - `joint_limits.yaml`: trajectory planning에 필요한 가속도 한계 추가
 - `moveit.rviz`: 기본 Planning Group을 `both_arms`로 변경
+
+---
 
 ## License
 
