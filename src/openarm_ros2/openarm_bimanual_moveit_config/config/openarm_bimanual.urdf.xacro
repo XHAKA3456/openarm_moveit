@@ -13,6 +13,12 @@
 　WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 　See the License for the specific language governing permissions and
 　limitations under the License.
+
+　This file has been modified from the original source:
+　https://github.com/enactic/openarm_ros2
+　Changes: Added default xacro args (bimanual=true, use_fake_hardware=true,
+　ros2_control=false) so that MoveItConfigsBuilder loads the correct
+　bimanual robot model.
 -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="openarm_bimanual">
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />

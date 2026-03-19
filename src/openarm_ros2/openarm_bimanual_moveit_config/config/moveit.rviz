@@ -1,3 +1,7 @@
+# Copyright 2025 Enactic, Inc.
+# Licensed under the Apache License, Version 2.0
+# Original source: https://github.com/enactic/openarm_ros2
+# Changes: Default Planning Group changed from 'upper_body' to 'left_arm'.
 Panels:
   - Class: rviz_common/Displays
     Help Height: 138
@@ -226,7 +230,7 @@ Visualization Manager:
         Goal State Color: 20; 93; 250
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
-        Planning Group: left_arm
+        Planning Group: both_arms
         Query Goal State: true
         Query Start State: false
         Show Workspace: false
